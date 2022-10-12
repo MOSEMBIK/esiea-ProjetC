@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 
 int input_reader(int nb_a_retirer, int max){
@@ -15,13 +16,13 @@ int input_reader(int nb_a_retirer, int max){
 }
 
 
-int game(int nb_allumettes, char joueur_actuel){
+int game(int nb_allumettes, char joueur_actuel[]){
     int nb_a_retirer = 0;
     printf("Nombre d'allumettes restantes : %d\n", nb_allumettes);
     for(int i=0; i<nb_allumettes; i++){
         printf("| ");
     }
-    printf("\nAu tour de %c\n", joueur_actuel);
+    printf("\nAu tour de %s\n", joueur_actuel);
 
     if(nb_allumettes >= 3){
         nb_a_retirer = input_reader(nb_a_retirer, 3);
@@ -35,7 +36,7 @@ int game(int nb_allumettes, char joueur_actuel){
         nb_a_retirer = 1;
     }
 
-    printf("%c prend %d allumette(s)\n", joueur_actuel, nb_a_retirer);
+    printf("%s prend %d allumette(s)\n", joueur_actuel, nb_a_retirer);
     printf("\n");
     nb_allumettes = nb_allumettes - nb_a_retirer;
 
@@ -44,33 +45,33 @@ int game(int nb_allumettes, char joueur_actuel){
 
 
 int main() {
-    char joueur1;
-    char joueur2;
-    char joueur_actuel;
+    char joueur1[20];
+    char joueur2[20];
+    char joueur_actuel[20];
     int niveau = 1;
     int nb_allumettes = 20;
 
     printf("Nom du joueur 1 :");
-    scanf("%c", &joueur1);
+    scanf("%s", joueur1);
     fflush(stdin);
     printf("Nom du joueur 2 :");
-    scanf("%c", &joueur2);
+    scanf("%s", joueur2);
     fflush(stdin);
 
-    printf("Jeu contre %c, niveau %d, avec %d allumettes au depart \n", joueur2, niveau, nb_allumettes);
+    printf("Jeu contre %s, niveau %d, avec %d allumettes au depart \n", joueur2, niveau, nb_allumettes);
     printf("\n");
 
-    joueur_actuel = joueur1;
+    strncpy(joueur_actuel, joueur1, 20);
     while(nb_allumettes != 0){
-        if(joueur_actuel == joueur1){
+        if(strcmp(joueur_actuel, joueur1) == 0){
             nb_allumettes = game(nb_allumettes, joueur_actuel);
-            joueur_actuel = joueur2;
-        } else if(joueur_actuel == joueur2){
+            strncpy(joueur_actuel, joueur2, 20);
+        } else if(strcmp(joueur_actuel, joueur2) == 0){
             nb_allumettes = game(nb_allumettes, joueur_actuel);
-            joueur_actuel = joueur1;
+            strncpy(joueur_actuel, joueur1, 20);
         }
     }
 
     printf("FIN DE PARTIE\n");
-    printf("Le joueur %c a gagne !\n", joueur_actuel);
+    printf("Le joueur %s a gagne !\n", joueur_actuel);
 }
