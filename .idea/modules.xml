@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/ProjetC_intermediaire.iml" filepath="$PROJECT_DIR$/.idea/ProjetC_intermediaire.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/esiea-ProjetC.iml" filepath="$PROJECT_DIR$/.idea/esiea-ProjetC.iml" />
     </modules>
   </component>
 </project>
