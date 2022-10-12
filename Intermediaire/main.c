@@ -16,7 +16,7 @@ int input_reader(int nb_a_retirer, int max){
 }
 
 
-int game(int nb_allumettes, char joueur_actuel[]){
+int game(int nb_allumettes, char joueur_actuel[16]){
     int nb_a_retirer = 0;
     printf("Nombre d'allumettes restantes : %d\n", nb_allumettes);
     for(int i=0; i<nb_allumettes; i++){
@@ -45,30 +45,43 @@ int game(int nb_allumettes, char joueur_actuel[]){
 
 
 int main() {
-    char joueur1[20];
-    char joueur2[20];
-    char joueur_actuel[20];
+    char joueur1[16];
+    char joueur2[16];
+    char joueur_actuel[16];
     int niveau = 1;
     int nb_allumettes = 20;
 
-    printf("Nom du joueur 1 :");
+    printf("Nom du joueur 1 (16 caracteres autorises) :");
     scanf("%s", joueur1);
     fflush(stdin);
-    printf("Nom du joueur 2 :");
+    while(strlen(joueur1) > 16) {
+        printf("Erreur ! 16 caracteres autorises.\n");
+        printf("\nNom du joueur 1 :\n");
+        scanf("%s", joueur1);
+        fflush(stdin);
+    }
+
+    printf("Nom du joueur 2 (16 caracteres autorises) :");
     scanf("%s", joueur2);
     fflush(stdin);
+    while(strlen(joueur2) > 16) {
+        printf("Erreur ! 16 caracteres autorises.\n");
+        printf("\nNom du joueur 2 :\n");
+        scanf("%s", joueur2);
+        fflush(stdin);
+    }
 
     printf("Jeu contre %s, niveau %d, avec %d allumettes au depart \n", joueur2, niveau, nb_allumettes);
     printf("\n");
 
-    strncpy(joueur_actuel, joueur1, 20);
+    strncpy(joueur_actuel, joueur1, 16);
     while(nb_allumettes != 0){
         if(strcmp(joueur_actuel, joueur1) == 0){
             nb_allumettes = game(nb_allumettes, joueur_actuel);
-            strncpy(joueur_actuel, joueur2, 20);
+            strncpy(joueur_actuel, joueur2, 16);
         } else if(strcmp(joueur_actuel, joueur2) == 0){
             nb_allumettes = game(nb_allumettes, joueur_actuel);
-            strncpy(joueur_actuel, joueur1, 20);
+            strncpy(joueur_actuel, joueur1, 16);
         }
     }
 
