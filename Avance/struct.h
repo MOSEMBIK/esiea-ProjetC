@@ -28,7 +28,7 @@ typedef struct arbre_struct
 typedef struct code_struct
 {
     unsigned char ascii_char;
-    char code[];
+    unsigned char code[32];
 } codestruct;
 
 /* ----------------------------------------------------------------- */
