@@ -87,4 +87,7 @@ int main() {
 
     printf("FIN DE PARTIE\n");
     printf("Le joueur %s a gagne !\n", joueur_actuel);
+
+    printf("\n\nCliquez sur ENTREE pour quitter.");
+    while (scanf("%s") != '\n');
 }
