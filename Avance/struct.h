@@ -7,15 +7,25 @@
 
 #define MAX_BUFFER_SIZE 1000
 
-struct char_struct
+
+typedef struct char_struct
 {
-    int nombre;
-    unsigned long frequence;
-};
+    unsigned char ascii_char;
+    int occurrence;
+} charstruct;
 
-int lire_caracteres(struct char_struct*, char[]);
 
-void creer_arbre();
+typedef struct arbre_struct
+{
+    charstruct value;
+    struct arbre_struct * a_gauche;
+    struct arbre_struct * a_droite;
+} arbrestruct;
+
+
+void lire_caracteres(charstruct[], char[]);
+
+void creer_arbre(arbrestruct[], charstruct[]);
 
 void encoder_frequences();
 

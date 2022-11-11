@@ -1,40 +1,31 @@
 #include "struct.h"
 
 
-int lire_caracteres(struct char_struct *char_struct, char nom_fichier[]){
+void lire_caracteres(charstruct char_struct[], char nom_fichier[]){
+    printf("\n\n 1.");
     int char_count = 0;
     FILE *fPointer;
     fPointer = fopen(nom_fichier, "r");
     char singleLine[MAX_BUFFER_SIZE];
 
+    printf("\n\n 2.");
     if(fPointer == NULL){
         printf("Erreur fopen\n");
         return 1;
     }
 
-    char_struct = malloc(sizeof(struct char_struct));
-
+    printf("\n\n 3.");
     while(!feof(fPointer)){
+        printf("\n\n 3.1");
         fgets(singleLine, MAX_BUFFER_SIZE, fPointer);
+        printf("\n\n 3.2");
         for(int i=0; i<strlen(singleLine); i++){
-            printf("%d\n", char_struct[singleLine[i]].nombre);
-            char_struct[singleLine[i]].nombre++;
-            char_count++;
+            char_struct[singleLine[i]].occurrence++;
         }
     }
 
-    printf("%d", char_count);
-
+    printf("\n\n 4.");
     fclose(fPointer);
-    return char_count;
-}
-
-
-struct char_struct * generer_frequences(struct char_struct *char_struct, int char_count){
-    for(int i=0; i<sizeof(struct char_struct); i++){
-        char_struct[i].frequence = char_struct[i].nombre / char_count;
-    }
-    return char_struct;
 }
 
 
