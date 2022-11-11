@@ -7,6 +7,8 @@
 
 #define MAX_BUFFER_SIZE 1000
 
+/* ----------------------------------------------------------------- */
+/* STUCTURES */
 
 typedef struct char_struct
 {
@@ -23,18 +25,47 @@ typedef struct arbre_struct
 } arbrestruct;
 
 
+typedef struct code_struct
+{
+    unsigned char ascii_char;
+    char code[];
+} codestruct;
+
+/* ----------------------------------------------------------------- */
+/* FONCTIONS */
+
+//
+// 
+// param1 : 
+// param2 : 
 void lire_caracteres(charstruct[], char[]);
 
-void creer_arbre(arbrestruct[], charstruct[]);
+// Crée une liste d'arbre contenant des charstruct et les concatenes puis 
+// retourne une liste de codestruct liant char et encodage
+//
+// param1 : char vide servant d'output ("" -> "110011101010001110...")
+// param2 : texte en input
+// param3 : codestruct
+void creer_arbre(arbrestruct[], charstruct[], codestruct[]);
 
-void encoder_frequences();
+// Prend texte input et retourne string binaire encodee selon code
+//
+// param1 : char vide servant d'output ("" -> "110011101010001110...")
+// param2 : texte en input
+// param3 : codestruct
+void encoder_fichier(char[], char[], codestruct);
 
-void associer_frequences_encodage();
+// Prend string binaire encodee selon arbre et l'ecrit dans un fichier .txt
+//
+// param1 : path fichier d'output 
+// param2 : texte encode
+void compresser_fichier(char[], char[]);
 
-void creer_nouveau_fichier();
-
-void compresser_fichier();
-
-void decompresser_fichier();
+// Inverse de compresser en suivant arbre
+//
+// param1 : path fichier d'input encodee
+// param2 : path fichier d'output
+// param3 : arbrestruct
+void decompresser_fichier(char[], char[], arbrestruct[]);
 
 #endif
