@@ -14,3 +14,4 @@ int main(){
     while (scanf("%s") != '\n');
     return 0;
 }
+
