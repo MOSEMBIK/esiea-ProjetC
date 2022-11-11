@@ -12,7 +12,7 @@ void lire_caracteres(charstruct char_struct[], char nom_fichier[]){
     printf("\n\n 2.");
     if(fPointer == NULL){
         printf("Erreur fopen\n");
-        return 1;
+        return;
     }
 
     printf("\n\n 3.");
@@ -46,7 +46,7 @@ void encoder_fichier(char void_char[], char nom_fichier[], codestruct code[]){
     printf("\n\n 2.");
     if(fPointer == NULL){
         printf("Erreur fopen\n");
-        return 1;
+        return;
     }
 
     printf("\n\n 3.");
@@ -64,7 +64,6 @@ void encoder_fichier(char void_char[], char nom_fichier[], codestruct code[]){
     printf("\n\n 4.");
     fclose(fPointer);
 }
-
 
 
 void compresser_fichier(char fichier_output[], char encoded_char[]) {
