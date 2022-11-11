@@ -1,15 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "struct.h"
 
 #define MAX_BUFFER_SIZE 1000
-
-struct char_struct
-{
-    int nombre;
-    unsigned long frequence;
-};
 
 struct char_struct *char_struct;
 
