@@ -90,4 +90,6 @@ int main() {
 
     printf("\n\nCliquez sur ENTREE pour quitter.");
     while (scanf("%s") != '\n');
+    
+    return 0;
 }
