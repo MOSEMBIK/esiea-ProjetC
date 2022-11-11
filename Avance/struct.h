@@ -46,7 +46,7 @@ void lire_caracteres(charstruct[], char[]);
 // param1 : char vide servant d'output ("" -> "110011101010001110...")
 // param2 : texte en input
 // param3 : codestruct
-void creer_arbre(arbrestruct[], charstruct[], codestruct[]);
+void creer_arbre(arbrestruct[], charstruct[], codestruct[]); // ToDo
 
 // Prend texte input et retourne string binaire encodee selon code
 //
