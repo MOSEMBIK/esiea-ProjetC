@@ -29,31 +29,3 @@ void lire_caracteres(charstruct char_struct[], char nom_fichier[]){
 }
 
 
-void creer_arbre(){
-    return;
-}
-
-
-void encoder_frequences(){
-    return;
-}
-
-
-void associer_frequences_encodage(){
-    return;
-}
-
-
-void creer_nouveau_fichier(){
-    return;
-}
-
-
-void compresser_fichier(){
-    return;
-}
-
-
-void decompresser_fichier(){
-    return;
-}
