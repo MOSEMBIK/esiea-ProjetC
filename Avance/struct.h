@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_BUFFER_SIZE 1000
+#define MAX_BUFFER_SIZE 5120
 
 /* ----------------------------------------------------------------- */
 /* STUCTURES */
@@ -15,6 +15,13 @@ typedef struct char_struct
     unsigned char ascii_char;
     int occurrence;
 } charstruct;
+
+
+typedef struct charindex_struct
+{
+    unsigned char ascii_char;
+    int index;
+} charindexstruct;
 
 
 typedef struct arbre_struct
@@ -28,7 +35,7 @@ typedef struct arbre_struct
 typedef struct code_struct
 {
     unsigned char ascii_char;
-    unsigned char code[32];
+    char code[32];
 } codestruct;
 
 /* ----------------------------------------------------------------- */
@@ -38,15 +45,21 @@ typedef struct code_struct
 // 
 // param1 : 
 // param2 : 
-void lire_caracteres(charstruct[], char[]);
+int lire_caracteres(charstruct[], char[]);
 
-// Crée une liste d'arbre contenant des charstruct et les concatenes puis 
-// retourne une liste de codestruct liant char et encodage
+// Crée une liste d'arbre contenant des charstruct et les concatenes
 //
 // param1 : char vide servant d'output ("" -> "110011101010001110...")
 // param2 : texte en input
 // param3 : codestruct
-void creer_arbre(arbrestruct[], charstruct[], codestruct[]); // ToDo
+arbrestruct creer_arbre(arbrestruct[], charstruct[], int, arbrestruct); // ToDo
+
+// Retourne une liste de codestruct liant char et leur encodage
+//
+// param1 : char vide servant d'output ("" -> "110011101010001110...")
+// param2 : texte en input
+// param3 : codestruct
+void creer_table(codestruct[], arbrestruct);
 
 // Prend texte input et retourne string binaire encodee selon code
 //
