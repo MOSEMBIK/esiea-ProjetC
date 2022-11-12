@@ -27,7 +27,6 @@ typedef struct charindex_struct
 typedef struct arbre_struct
 {
     charstruct value;
-    struct arbre_struct * a_parent;
     struct arbre_struct * a_gauche;
     struct arbre_struct * a_droite;
 } arbrestruct;
@@ -53,7 +52,7 @@ int lire_caracteres(charstruct[], char[]);
 // param1 : char vide servant d'output ("" -> "110011101010001110...")
 // param2 : texte en input
 // param3 : codestruct
-void creer_arbre(arbrestruct[], charstruct[], int, arbrestruct); // ToDo
+arbrestruct creer_arbre(arbrestruct[], charstruct[], int, arbrestruct); // ToDo
 
 // Retourne une liste de codestruct liant char et leur encodage
 //
