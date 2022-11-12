@@ -99,9 +99,11 @@ void creer_arbre(arbrestruct arbre_struct[], charstruct char_struct[], int cst_s
     endcoded_arbre_struct = arbre_struct[last_index];
 }
 
+
 void creer_table(codestruct code_struct[], arbrestruct endcoded_arbre_struct){
 
 }
+
 
 void encoder_fichier(char void_char[], char nom_fichier[], codestruct code[]){
     printf("\n\n ENCODING FILE...");
