@@ -2,7 +2,7 @@
 
 int main(){
     charstruct char_struct[256] = {NULL, 0};
-    arbrestruct arbre_struct[512] = {NULL, NULL, NULL};
+    arbrestruct arbre_struct[512] = {NULL, NULL, NULL, NULL};
     arbrestruct endcoded_arbre_struct;
     codestruct code_struct[256] = {NULL, NULL};
 
@@ -18,6 +18,7 @@ int main(){
     }
 
     creer_arbre(arbre_struct, char_struct, size, endcoded_arbre_struct);
+    printf("\n\n Built tree :");
     printf(
         "\n Root Char : '%c'\n Root Occurence : %d\n\n Char Gauche : '%c'\n Occurrence Gauche : %d\n\n Char Droit : '%c'\n Occurrence Droit : %d",  
         endcoded_arbre_struct.value.ascii_char, 
@@ -29,6 +30,10 @@ int main(){
     );
 
     creer_table(code_struct, endcoded_arbre_struct, endcoded_arbre_struct);
+
+    for(int i=0; i<size; i++){
+        printf("\n %c : %s", code_struct[i].ascii_char, code_struct[i].code);
+    }
 
     encoder_fichier(encoded_data, "./test.txt", code_struct);
 

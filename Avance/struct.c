@@ -87,8 +87,8 @@ void creer_arbre(arbrestruct arbre_struct[], charstruct char_struct[], int cst_s
             arbre_struct[cst_size+(cpt_a_idx/2)].value.occurrence = new_occ;
             arbre_struct[cst_size+(cpt_a_idx/2)].a_gauche = &arbre_struct[0 + cpt_a_idx];
             arbre_struct[cst_size+(cpt_a_idx/2)].a_droite = &arbre_struct[1 + cpt_a_idx];
-            arbre_struct[cst_size+(cpt_a_idx/2)].a_gauche->a_parent = &arbre_struct[cst_size+(cpt_a_idx/2)];
-            arbre_struct[cst_size+(cpt_a_idx/2)].a_droite->a_parent = &arbre_struct[cst_size+(cpt_a_idx/2)];
+            //arbre_struct[cst_size+(cpt_a_idx/2)].a_gauche->a_parent = &arbre_struct[cst_size+(cpt_a_idx/2)];
+            //arbre_struct[cst_size+(cpt_a_idx/2)].a_droite->a_parent = &arbre_struct[cst_size+(cpt_a_idx/2)];
         } else {
             //printf("\n\n BREAK");
             last_index = cst_size+(cpt_a_idx/2) - 1;
@@ -97,36 +97,34 @@ void creer_arbre(arbrestruct arbre_struct[], charstruct char_struct[], int cst_s
         cpt_a_idx += 2;
     }
     
-    printf("\n\n Built tree :");
     endcoded_arbre_struct = arbre_struct[last_index];
 }
 
 
 void creer_table(codestruct code_struct[], arbrestruct endcoded_arbre_struct, arbrestruct lastnoeud){
-    arbrestruct * noeud;
-    arbrestruct * lastnoeud;
+    arbrestruct noeud;
     int count = 0;
 
     while(code_struct[count].ascii_char == NULL){
-        noeud = &endcoded_arbre_struct;
-        if(noeud->a_gauche == NULL){
+        noeud = endcoded_arbre_struct;
+        if(noeud.a_gauche == NULL){
             strcat(code_struct[count].code, '0');
-            lastnoeud = *noeud;
-            creer_table(code_struct, *noeud->a_gauche, lastnoeud);
+            lastnoeud = noeud;
+            creer_table(code_struct, *noeud.a_gauche, lastnoeud);
         } else {
             strcat(code_struct[count].code, '0');
-            code_struct[count].ascii_char = noeud->a_gauche->value.ascii_char;
+            code_struct[count].ascii_char = noeud.a_gauche->value.ascii_char;
             count++;
 
-            if(noeud->a_droite == NULL){
+            if(noeud.a_droite == NULL){
                 strcat(code_struct[count].code, '1');
-                lastnoeud = *noeud;
-                creer_table(code_struct, *noeud->a_droite, lastnoeud);
+                lastnoeud = noeud;
+                creer_table(code_struct, *noeud.a_droite, lastnoeud);
             } else {
                 strcat(code_struct[count].code, '1');
-                code_struct[count].ascii_char = noeud->a_droite->value.ascii_char;
+                code_struct[count].ascii_char = noeud.a_droite->value.ascii_char;
                 count++;
-                creer_table(code_struct, lastnoeud, )
+                creer_table(code_struct, *lastnoeud.a_parent->a_droite, lastnoeud); // à modif
             }
         }
     }
