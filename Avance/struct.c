@@ -48,7 +48,7 @@ int lire_caracteres(charstruct char_struct[], char nom_fichier[]){
 }
 
 
-void creer_arbre(arbrestruct arbre_struct[], charstruct char_struct[], int cst_size, codestruct code[], arbrestruct endcoded_arbre_struct){
+void creer_arbre(arbrestruct arbre_struct[], charstruct char_struct[], int cst_size, arbrestruct endcoded_arbre_struct){
     printf("\n\n BUILDING TREES...");
     int arbre_with_occ = 0;
 
@@ -97,21 +97,11 @@ void creer_arbre(arbrestruct arbre_struct[], charstruct char_struct[], int cst_s
     
     printf("\n\n Built tree :");
     endcoded_arbre_struct = arbre_struct[last_index];
-    printf(
-        "\n Root Char : '%c'\n Root Occurence : %d\n\n Char Gauche : '%c'\n Occurrence Gauche : %d\n\n Char Droit : '%c'\n Occurrence Droit : %d",  
-        endcoded_arbre_struct.value.ascii_char, 
-        endcoded_arbre_struct.value.occurrence, 
-        endcoded_arbre_struct.a_gauche->value.ascii_char, 
-        endcoded_arbre_struct.a_gauche->value.occurrence, 
-        endcoded_arbre_struct.a_droite->value.ascii_char, 
-        endcoded_arbre_struct.a_droite->value.occurrence
-    );
-
-    // Création du tableau de correspondances
-    
-
 }
 
+void creer_table(codestruct code_struct[], arbrestruct endcoded_arbre_struct){
+
+}
 
 void encoder_fichier(char void_char[], char nom_fichier[], codestruct code[]){
     printf("\n\n ENCODING FILE...");

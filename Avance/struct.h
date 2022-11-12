@@ -47,13 +47,19 @@ typedef struct code_struct
 // param2 : 
 int lire_caracteres(charstruct[], char[]);
 
-// Crée une liste d'arbre contenant des charstruct et les concatenes puis 
-// retourne une liste de codestruct liant char et encodage
+// Crée une liste d'arbre contenant des charstruct et les concatenes
 //
 // param1 : char vide servant d'output ("" -> "110011101010001110...")
 // param2 : texte en input
 // param3 : codestruct
-void creer_arbre(arbrestruct[], charstruct[], int, codestruct[], arbrestruct); // ToDo
+void creer_arbre(arbrestruct[], charstruct[], int, arbrestruct); // ToDo
+
+// Retourne une liste de codestruct liant char et leur encodage
+//
+// param1 : char vide servant d'output ("" -> "110011101010001110...")
+// param2 : texte en input
+// param3 : codestruct
+void creer_table(codestruct[], arbrestruct);
 
 // Prend texte input et retourne string binaire encodee selon code
 //
