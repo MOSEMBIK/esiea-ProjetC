@@ -27,6 +27,7 @@ int main(){
     //             printf("\n   Index : %d \n   Char : '\\n' \n   Occurence : %d\n", i, char_struct[i].occurrence);
     //     }   
     // }
+    printf("\n\n -- Read ! --");
 
 
     /* --------------------------------------------------------------------- */
@@ -35,9 +36,10 @@ int main(){
     printf("\n\n---------------------------------\n\n");
     printf("\n\nBUILDING TREES...");
     endcoded_arbre_struct = creer_arbre(arbre_struct, char_struct, size, endcoded_arbre_struct);
-    printf("\n\n Built tree :");
+    printf("\n\n -- Built ! --");
+    printf("\n\n Tree data :");
     printf(
-        "\n Root Char : '%c'\n Root Occurence : %d\n   Char Gauche : '%c'\n   Occurrence Gauche : %d\n\n   Char Droit : '%c'\n   Occurrence Droit : %d",  
+        "\n   Root Char : '%c'\n   Root Occurence : %d\n     Char Gauche : '%c'\n     Occurrence Gauche : %d\n\n     Char Droit : '%c'\n     Occurrence Droit : %d",  
         endcoded_arbre_struct.value.ascii_char, 
         endcoded_arbre_struct.value.occurrence, 
         endcoded_arbre_struct.a_gauche->value.ascii_char, 
@@ -55,9 +57,13 @@ int main(){
     int inte = 0;
     creer_table_g(code_struct, &endcoded_arbre_struct, &inte, code);
     creer_table_d(code_struct, &endcoded_arbre_struct, &inte, code2);
+    printf("\n\n -- Created ! --");
     printf("\n\n Table :");
     for (int i=0; i<size; i++){
-        printf("\n\n   char : '%c'\n   code : %s", code_struct[i].ascii_char, &code_struct[i].code);
+        if (code_struct[i].ascii_char == '\n') {
+            printf("\n  > '\\n'  :            |  < %s >", &code_struct[i].code);
+        } else
+            printf("\n  > '%c'   :            |  < %s >", code_struct[i].ascii_char, &code_struct[i].code);
     }
 
 

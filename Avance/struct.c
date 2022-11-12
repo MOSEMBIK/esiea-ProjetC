@@ -119,7 +119,7 @@ void creer_table_g(codestruct code_struct[], arbrestruct * endcoded_arbre_struct
     } else {
         ch = '0';
         code = strncat(code, &ch, 1);
-        code_struct[*i].ascii_char = endcoded_arbre_struct->value.ascii_char;
+        code_struct[*i].ascii_char = endcoded_arbre_struct->a_gauche->value.ascii_char;
         strcpy(code_struct[*i].code, code);
         
 
@@ -141,7 +141,7 @@ void creer_table_g(codestruct code_struct[], arbrestruct * endcoded_arbre_struct
     } else {
         ch = '1';
         code = strncat(code, &ch, 1);
-        code_struct[*i].ascii_char = endcoded_arbre_struct->value.ascii_char;
+        code_struct[*i].ascii_char = endcoded_arbre_struct->a_droite->value.ascii_char;
         strcpy(code_struct[*i].code, code);
         
 
@@ -180,7 +180,7 @@ void creer_table_d(codestruct code_struct[], arbrestruct * endcoded_arbre_struct
     } else {
         ch = '1';
         code = strncat(code, &ch, 1);
-        code_struct[*i].ascii_char = endcoded_arbre_struct->value.ascii_char;
+        code_struct[*i].ascii_char = endcoded_arbre_struct->a_droite->value.ascii_char;
         strcpy(code_struct[*i].code, code);
         
 
@@ -203,7 +203,7 @@ void creer_table_d(codestruct code_struct[], arbrestruct * endcoded_arbre_struct
     } else {
         ch = '0';
         code = strncat(code, &ch, 1);
-        code_struct[*i].ascii_char = endcoded_arbre_struct->value.ascii_char;
+        code_struct[*i].ascii_char = endcoded_arbre_struct->a_gauche->value.ascii_char;
         strcpy(code_struct[*i].code, code);
         
 
