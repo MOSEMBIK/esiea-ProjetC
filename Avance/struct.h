@@ -27,6 +27,7 @@ typedef struct charindex_struct
 typedef struct arbre_struct
 {
     charstruct value;
+    struct arbre_struct * a_parent;
     struct arbre_struct * a_gauche;
     struct arbre_struct * a_droite;
 } arbrestruct;

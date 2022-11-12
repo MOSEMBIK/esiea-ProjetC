@@ -87,6 +87,8 @@ void creer_arbre(arbrestruct arbre_struct[], charstruct char_struct[], int cst_s
             arbre_struct[cst_size+(cpt_a_idx/2)].value.occurrence = new_occ;
             arbre_struct[cst_size+(cpt_a_idx/2)].a_gauche = &arbre_struct[0 + cpt_a_idx];
             arbre_struct[cst_size+(cpt_a_idx/2)].a_droite = &arbre_struct[1 + cpt_a_idx];
+            arbre_struct[cst_size+(cpt_a_idx/2)].a_gauche->a_parent = &arbre_struct[cst_size+(cpt_a_idx/2)];
+            arbre_struct[cst_size+(cpt_a_idx/2)].a_droite->a_parent = &arbre_struct[cst_size+(cpt_a_idx/2)];
         } else {
             //printf("\n\n BREAK");
             last_index = cst_size+(cpt_a_idx/2) - 1;
