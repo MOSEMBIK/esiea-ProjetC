@@ -28,7 +28,7 @@ int main(){
         endcoded_arbre_struct.a_droite->value.occurrence
     );
 
-    creer_table(code_struct, endcoded_arbre_struct);
+    creer_table(code_struct, endcoded_arbre_struct, endcoded_arbre_struct);
 
     encoder_fichier(encoded_data, "./test.txt", code_struct);
 

@@ -100,8 +100,34 @@ void creer_arbre(arbrestruct arbre_struct[], charstruct char_struct[], int cst_s
 }
 
 
-void creer_table(codestruct code_struct[], arbrestruct endcoded_arbre_struct){
+void creer_table(codestruct code_struct[], arbrestruct endcoded_arbre_struct, arbrestruct lastnoeud){
+    arbrestruct * noeud;
+    arbrestruct * lastnoeud;
+    int count = 0;
 
+    while(code_struct[count].ascii_char == NULL){
+        noeud = &endcoded_arbre_struct;
+        if(noeud->a_gauche == NULL){
+            strcat(code_struct[count].code, '0');
+            lastnoeud = *noeud;
+            creer_table(code_struct, *noeud->a_gauche, lastnoeud);
+        } else {
+            strcat(code_struct[count].code, '0');
+            code_struct[count].ascii_char = noeud->a_gauche->value.ascii_char;
+            count++;
+
+            if(noeud->a_droite == NULL){
+                strcat(code_struct[count].code, '1');
+                lastnoeud = *noeud;
+                creer_table(code_struct, *noeud->a_droite, lastnoeud);
+            } else {
+                strcat(code_struct[count].code, '1');
+                code_struct[count].ascii_char = noeud->a_droite->value.ascii_char;
+                count++;
+                creer_table(code_struct, lastnoeud, )
+            }
+        }
+    }
 }
 
 

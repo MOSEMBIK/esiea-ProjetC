@@ -59,7 +59,7 @@ void creer_arbre(arbrestruct[], charstruct[], int, arbrestruct); // ToDo
 // param1 : char vide servant d'output ("" -> "110011101010001110...")
 // param2 : texte en input
 // param3 : codestruct
-void creer_table(codestruct[], arbrestruct);
+void creer_table(codestruct[], arbrestruct, arbrestruct);
 
 // Prend texte input et retourne string binaire encodee selon code
 //
