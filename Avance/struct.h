@@ -67,7 +67,7 @@ void creer_table_d(codestruct[], arbrestruct*, int*, char[]);
 // param1 : char vide servant d'output ("" -> "110011101010001110...")
 // param2 : texte en input
 // param3 : codestruct
-void encoder_fichier(char[], char[], codestruct[]);
+void encoder_fichier(char[], char[], codestruct[], int);
 
 // Prend string binaire encodee selon arbre et l'ecrit dans un fichier .txt
 //
