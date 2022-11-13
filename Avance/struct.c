@@ -8,8 +8,8 @@ int aStructComparator(arbrestruct * first, arbrestruct * second) {
 }
 
 
+
 int lire_caracteres(charstruct char_struct[], char nom_fichier[]){
-    printf("\n\nREADING FILE...");
     // printf("\n\n 1.");
     FILE *fPointer;
     fPointer = fopen(nom_fichier, "r");
@@ -48,8 +48,8 @@ int lire_caracteres(charstruct char_struct[], char nom_fichier[]){
 }
 
 
+
 arbrestruct creer_arbre(arbrestruct arbre_struct[], charstruct char_struct[], int cst_size, arbrestruct endcoded_arbre_struct){
-    printf("\n\nBUILDING TREES...");
     int arbre_with_occ = 0;
 
     // Construction des arbres
@@ -89,11 +89,131 @@ arbrestruct creer_arbre(arbrestruct arbre_struct[], charstruct char_struct[], in
 }
 
 
-void creer_table(codestruct code_struct[], arbrestruct endcoded_arbre_struct){
-    printf("\n\nGENERATING TABLE...");
-    printf("\n\n 1.");
 
+void creer_table_g(codestruct code_struct[], arbrestruct * endcoded_arbre_struct, int * i, char code[]){
+    // printf("\n\n\n\n\n\n\n\nGENERATING TABLE...");
+    // printf("\nLEFT");
+    // printf("\nProcessed char : %d", *i);
+    // printf("\nBranch |");
+    // printf(
+    //     "\n Root Char : '%c'\n Root Occurence : %d\n\n    Char Gauche : '%c'\n    Occurrence Gauche : %d\n\n    Char Droit : '%c'\n    Occurrence Droit : %d",  
+    //     endcoded_arbre_struct->value.ascii_char, 
+    //     endcoded_arbre_struct->value.occurrence, 
+    //     endcoded_arbre_struct->a_gauche->value.ascii_char, 
+    //     endcoded_arbre_struct->a_gauche->value.occurrence, 
+    //     endcoded_arbre_struct->a_droite->value.ascii_char, 
+    //     endcoded_arbre_struct->a_droite->value.occurrence
+    // );
+    char ch;
+
+
+
+
+    // Parcours Gauche
+    if (endcoded_arbre_struct->a_gauche->value.ascii_char == NULL){
+        // printf("\n\n left null - GO LEFT");
+        ch = '0';
+        code = strncat(code, &ch, 1);
+        // printf("\n RECURSIVE CALL");
+        creer_table_g(code_struct, endcoded_arbre_struct->a_gauche, i, code);
+    } else {
+        ch = '0';
+        code = strncat(code, &ch, 1);
+        code_struct[*i].ascii_char = endcoded_arbre_struct->a_gauche->value.ascii_char;
+        strcpy(code_struct[*i].code, code);
+        
+
+        // printf("\n\n Add to codestruct [%d] : ", *i);
+        // printf("\n   left -\n       char : '%c'\n       code : %s", code_struct[*i].ascii_char, code_struct[*i].code);
+        ++*i;
+    }
+    code[strlen(code)-1] = '\0';
+
+
+
+    // Parcours Droit
+    if (endcoded_arbre_struct->a_droite->value.ascii_char == NULL){
+        // printf("\n\n right null - GO RIGHT");
+        ch = '1';
+        code = strncat(code, &ch, 1);
+        // printf("\n RECURSIVE CALL");
+        creer_table_g(code_struct, endcoded_arbre_struct->a_droite, i, code);
+    } else {
+        ch = '1';
+        code = strncat(code, &ch, 1);
+        code_struct[*i].ascii_char = endcoded_arbre_struct->a_droite->value.ascii_char;
+        strcpy(code_struct[*i].code, code);
+        
+
+        // printf("\n\n Add to codestruct [%d] : ", *i);
+        // printf("\n   right -\n       char : '%c'\n       code : %s", code_struct[*i].ascii_char, code_struct[*i].code);
+        ++*i;
+    }
+    code[strlen(code)-1] = '\0';
 }
+
+void creer_table_d(codestruct code_struct[], arbrestruct * endcoded_arbre_struct, int * i, char code[]){
+    // printf("\n\n\n\n\n\n\n\nGENERATING TABLE...");
+    // printf("\nRIGHT");
+    // printf("\nProcessed char : %d", *i);
+    // printf("\nBranch |");
+    // printf(
+    //     "\n Root Char : '%c'\n Root Occurence : %d\n\n    Char Gauche : '%c'\n    Occurrence Gauche : %d\n\n    Char Droit : '%c'\n    Occurrence Droit : %d",  
+    //     endcoded_arbre_struct->value.ascii_char, 
+    //     endcoded_arbre_struct->value.occurrence, 
+    //     endcoded_arbre_struct->a_gauche->value.ascii_char, 
+    //     endcoded_arbre_struct->a_gauche->value.occurrence, 
+    //     endcoded_arbre_struct->a_droite->value.ascii_char, 
+    //     endcoded_arbre_struct->a_droite->value.occurrence
+    // );
+    char ch;
+
+
+
+    // Parcours Droit
+    if (endcoded_arbre_struct->a_droite->value.ascii_char == NULL){
+        // printf("\n\n right null - GO RIGHT");
+        ch = '0';
+        code = strncat(code, &ch, 1);
+        // printf("\n RECURSIVE CALL");
+        creer_table_d(code_struct, endcoded_arbre_struct->a_droite, i, code);
+    } else {
+        ch = '1';
+        code = strncat(code, &ch, 1);
+        code_struct[*i].ascii_char = endcoded_arbre_struct->a_droite->value.ascii_char;
+        strcpy(code_struct[*i].code, code);
+        
+
+        // printf("\n\n Add to codestruct [%d] : ", *i);
+        // printf("\n   right -\n       char : '%c'\n       code : %s", code_struct[*i].ascii_char, code_struct[*i].code);
+        ++*i;
+    }
+    code[strlen(code)-1] = '\0';
+
+
+
+
+    // Parcours Gauche
+    if (endcoded_arbre_struct->a_gauche->value.ascii_char == NULL){
+        // printf("\n\n left null - GO LEFT");
+        ch = '1';
+        code = strncat(code, &ch, 1);
+        // printf("\n RECURSIVE CALL");
+        creer_table_d(code_struct, endcoded_arbre_struct->a_gauche, i, code);
+    } else {
+        ch = '0';
+        code = strncat(code, &ch, 1);
+        code_struct[*i].ascii_char = endcoded_arbre_struct->a_gauche->value.ascii_char;
+        strcpy(code_struct[*i].code, code);
+        
+
+        // printf("\n\n Add to codestruct [%d] : ", *i);
+        // printf("\n   left -\n       char : '%c'\n       code : %s", code_struct[*i].ascii_char, code_struct[*i].code);
+        ++*i;
+    }
+    code[strlen(code)-1] = '\0';
+}
+
 
 
 void encoder_fichier(char void_char[], char nom_fichier[], codestruct code[]){
@@ -127,6 +247,7 @@ void encoder_fichier(char void_char[], char nom_fichier[], codestruct code[]){
 }
 
 
+
 void compresser_fichier(char fichier_output[], char encoded_char[]) {
     printf("\n\nCOMPRESSING FILE...");
     printf("\n\n 1.");
@@ -145,6 +266,7 @@ void compresser_fichier(char fichier_output[], char encoded_char[]) {
     printf("\n\n 4.");
     fclose(fPointer);    
 }
+
 
 
 void decompresser_fichier(char fichier_encode[], char fichier_decode[], arbrestruct arbre_struct[]) {
