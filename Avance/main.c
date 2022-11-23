@@ -7,7 +7,7 @@ int main(){
     arbrestruct arbre_struct[512] = {NULL, NULL, NULL};
     codestruct code_struct[256] = {NULL, NULL};
 
-    char encoded_data[40960] = {NULL};
+    char encoded_data[MAX_BIT] = {NULL};
     int size;
     arbrestruct endcoded_arbre_struct;
     char code[32] = {NULL};
@@ -79,28 +79,34 @@ int main(){
 
 
     /* --------------------------------------------------------------------- */
-    /* --------------------------- ENCODING DATA --------------------------- */
+    /* -------------------------- ENCODING DATA ---------------------------- */
     /* --------------------------------------------------------------------- */
     printf("\n\n---------------------------------\n\n");
+    printf("\n\nENCODING FILE...");
     encoder_fichier(encoded_data, SRC_FILE, code_struct, size);
+    printf("\n\n -- Encoded ! --");
     // Uncomment following to print Encoded data
-    
-    //printf("\n Encoded data : \n%s", encoded_data);
-    
+    /*
+    printf("\n\n Encoded data : \n%s", encoded_data);
+    */
 
 
     /* --------------------------------------------------------------------- */
-    /* -----------------------                    -------------------------- */
+    /* ------------------------  COMPRESSING FILE  ------------------------- */
     /* --------------------------------------------------------------------- */
     printf("\n\n---------------------------------\n\n");
+    printf("\n\nCOMPRESSING FILE...");
     compresser_fichier("./test_encode.bin", encoded_data);
+    printf("\n\n -- Compressed ! --");
 
 
     /* --------------------------------------------------------------------- */
-    /* -----------------------                    -------------------------- */
+    /* ------------------------ UNCOMPRESSING FILE ------------------------- */
     /* --------------------------------------------------------------------- */
     printf("\n\n---------------------------------\n\n");
+    printf("\n\nUNCOMPRESSING FILE...");
     decompresser_fichier("./test_encode.bin", "./test_decode.txt", encoded_data, size);
+    printf("\n\n -- Uncompressed ! --");
     
 
 

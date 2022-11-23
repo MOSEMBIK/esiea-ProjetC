@@ -6,6 +6,7 @@
 #include <string.h>
 
 #define MAX_BUFFER_SIZE 5120
+#define MAX_BIT 40960
 
 /* ----------------------------------------------------------------- */
 /* STUCTURES */
