@@ -8,8 +8,8 @@ int aStructComparator(arbrestruct * first, arbrestruct * second) {
 }
 
 
+
 int lire_caracteres(charstruct char_struct[], char nom_fichier[]){
-    printf("\n\n READING FILE...");
     // printf("\n\n 1.");
     FILE *fPointer;
     fPointer = fopen(nom_fichier, "r");
@@ -48,8 +48,8 @@ int lire_caracteres(charstruct char_struct[], char nom_fichier[]){
 }
 
 
-void creer_arbre(arbrestruct arbre_struct[], charstruct char_struct[], int cst_size, arbrestruct endcoded_arbre_struct){
-    printf("\n\n BUILDING TREES...");
+
+arbrestruct creer_arbre(arbrestruct arbre_struct[], charstruct char_struct[], int cst_size, arbrestruct endcoded_arbre_struct){
     int arbre_with_occ = 0;
 
     // Construction des arbres
@@ -59,16 +59,6 @@ void creer_arbre(arbrestruct arbre_struct[], charstruct char_struct[], int cst_s
         arbre_struct[i].value.occurrence = char_struct[i].occurrence;
 
     }
-
-    // Tri des arbre sur occurrence de value
-    //printf("\n\n 2.");
-    // qsort(arbre_struct, cst_size, sizeof(arbrestruct), aStructComparator);
-    // for (int i=0; i<cst_size; i++){
-    //     if (arbre_struct[i].value.occurrence != 0){
-    //         printf("\n Index : %d \n Char : '%c' \n Occurence : %d\n", i, arbre_struct[i].value.ascii_char, arbre_struct[i].value.occurrence);
-    //         arbre_with_occ++;
-    //     }   
-    // }
 
     // Processing de la list arbre_struct
     // printf("\n\n 2.");
@@ -87,8 +77,6 @@ void creer_arbre(arbrestruct arbre_struct[], charstruct char_struct[], int cst_s
             arbre_struct[cst_size+(cpt_a_idx/2)].value.occurrence = new_occ;
             arbre_struct[cst_size+(cpt_a_idx/2)].a_gauche = &arbre_struct[0 + cpt_a_idx];
             arbre_struct[cst_size+(cpt_a_idx/2)].a_droite = &arbre_struct[1 + cpt_a_idx];
-            //arbre_struct[cst_size+(cpt_a_idx/2)].a_gauche->a_parent = &arbre_struct[cst_size+(cpt_a_idx/2)];
-            //arbre_struct[cst_size+(cpt_a_idx/2)].a_droite->a_parent = &arbre_struct[cst_size+(cpt_a_idx/2)];
         } else {
             //printf("\n\n BREAK");
             last_index = cst_size+(cpt_a_idx/2) - 1;
@@ -97,42 +85,139 @@ void creer_arbre(arbrestruct arbre_struct[], charstruct char_struct[], int cst_s
         cpt_a_idx += 2;
     }
     
-    endcoded_arbre_struct = arbre_struct[last_index];
+    return arbre_struct[last_index];
 }
 
 
-void creer_table(codestruct code_struct[], arbrestruct endcoded_arbre_struct, arbrestruct lastnoeud){
-    arbrestruct noeud;
-    int count = 0;
 
-    while(code_struct[count].ascii_char == NULL){
-        noeud = endcoded_arbre_struct;
-        if(noeud.a_gauche == NULL){
-            strcat(code_struct[count].code, '0');
-            lastnoeud = noeud;
-            creer_table(code_struct, *noeud.a_gauche, lastnoeud);
-        } else {
-            strcat(code_struct[count].code, '0');
-            code_struct[count].ascii_char = noeud.a_gauche->value.ascii_char;
-            count++;
+void creer_table_g(codestruct code_struct[], arbrestruct * endcoded_arbre_struct, int * i, char code[]){
+    // printf("\n\n\n\n\n\n\n\nGENERATING TABLE...");
+    // printf("\nLEFT");
+    // printf("\nProcessed char : %d", *i);
+    // printf("\nBranch |");
+    // printf(
+    //     "\n Root Char : '%c'\n Root Occurence : %d\n\n    Char Gauche : '%c'\n    Occurrence Gauche : %d\n\n    Char Droit : '%c'\n    Occurrence Droit : %d",  
+    //     endcoded_arbre_struct->value.ascii_char, 
+    //     endcoded_arbre_struct->value.occurrence, 
+    //     endcoded_arbre_struct->a_gauche->value.ascii_char, 
+    //     endcoded_arbre_struct->a_gauche->value.occurrence, 
+    //     endcoded_arbre_struct->a_droite->value.ascii_char, 
+    //     endcoded_arbre_struct->a_droite->value.occurrence
+    // );
+    char ch;
 
-            if(noeud.a_droite == NULL){
-                strcat(code_struct[count].code, '1');
-                lastnoeud = noeud;
-                creer_table(code_struct, *noeud.a_droite, lastnoeud);
-            } else {
-                strcat(code_struct[count].code, '1');
-                code_struct[count].ascii_char = noeud.a_droite->value.ascii_char;
-                count++;
-                creer_table(code_struct, *lastnoeud.a_parent->a_droite, lastnoeud); // à modif
-            }
-        }
+
+
+
+    // Parcours Gauche
+    if (endcoded_arbre_struct->a_gauche->value.ascii_char == NULL){
+        // printf("\n\n left null - GO LEFT");
+        ch = '0';
+        code = strncat(code, &ch, 1);
+        // printf("\n RECURSIVE CALL");
+        creer_table_g(code_struct, endcoded_arbre_struct->a_gauche, i, code);
+    } else {
+        ch = '0';
+        code = strncat(code, &ch, 1);
+        code_struct[*i].ascii_char = endcoded_arbre_struct->a_gauche->value.ascii_char;
+        strcpy(code_struct[*i].code, code);
+        
+
+        // printf("\n\n Add to codestruct [%d] : ", *i);
+        // printf("\n   left -\n       char : '%c'\n       code : %s", code_struct[*i].ascii_char, code_struct[*i].code);
+        ++*i;
     }
+    code[strlen(code)-1] = '\0';
+
+
+
+    // Parcours Droit
+    if (endcoded_arbre_struct->a_droite->value.ascii_char == NULL){
+        // printf("\n\n right null - GO RIGHT");
+        ch = '1';
+        code = strncat(code, &ch, 1);
+        // printf("\n RECURSIVE CALL");
+        creer_table_g(code_struct, endcoded_arbre_struct->a_droite, i, code);
+    } else {
+        ch = '1';
+        code = strncat(code, &ch, 1);
+        code_struct[*i].ascii_char = endcoded_arbre_struct->a_droite->value.ascii_char;
+        strcpy(code_struct[*i].code, code);
+        
+
+        // printf("\n\n Add to codestruct [%d] : ", *i);
+        // printf("\n   right -\n       char : '%c'\n       code : %s", code_struct[*i].ascii_char, code_struct[*i].code);
+        ++*i;
+    }
+    code[strlen(code)-1] = '\0';
+}
+
+void creer_table_d(codestruct code_struct[], arbrestruct * endcoded_arbre_struct, int * i, char code[]){
+    // printf("\n\n\n\n\n\n\n\nGENERATING TABLE...");
+    // printf("\nRIGHT");
+    // printf("\nProcessed char : %d", *i);
+    // printf("\nBranch |");
+    // printf(
+    //     "\n Root Char : '%c'\n Root Occurence : %d\n\n    Char Gauche : '%c'\n    Occurrence Gauche : %d\n\n    Char Droit : '%c'\n    Occurrence Droit : %d",  
+    //     endcoded_arbre_struct->value.ascii_char, 
+    //     endcoded_arbre_struct->value.occurrence, 
+    //     endcoded_arbre_struct->a_gauche->value.ascii_char, 
+    //     endcoded_arbre_struct->a_gauche->value.occurrence, 
+    //     endcoded_arbre_struct->a_droite->value.ascii_char, 
+    //     endcoded_arbre_struct->a_droite->value.occurrence
+    // );
+    char ch;
+
+
+
+    // Parcours Droit
+    if (endcoded_arbre_struct->a_droite->value.ascii_char == NULL){
+        // printf("\n\n right null - GO RIGHT");
+        ch = '0';
+        code = strncat(code, &ch, 1);
+        // printf("\n RECURSIVE CALL");
+        creer_table_d(code_struct, endcoded_arbre_struct->a_droite, i, code);
+    } else {
+        ch = '1';
+        code = strncat(code, &ch, 1);
+        code_struct[*i].ascii_char = endcoded_arbre_struct->a_droite->value.ascii_char;
+        strcpy(code_struct[*i].code, code);
+        
+
+        // printf("\n\n Add to codestruct [%d] : ", *i);
+        // printf("\n   right -\n       char : '%c'\n       code : %s", code_struct[*i].ascii_char, code_struct[*i].code);
+        ++*i;
+    }
+    code[strlen(code)-1] = '\0';
+
+
+
+
+    // Parcours Gauche
+    if (endcoded_arbre_struct->a_gauche->value.ascii_char == NULL){
+        // printf("\n\n left null - GO LEFT");
+        ch = '1';
+        code = strncat(code, &ch, 1);
+        // printf("\n RECURSIVE CALL");
+        creer_table_d(code_struct, endcoded_arbre_struct->a_gauche, i, code);
+    } else {
+        ch = '0';
+        code = strncat(code, &ch, 1);
+        code_struct[*i].ascii_char = endcoded_arbre_struct->a_gauche->value.ascii_char;
+        strcpy(code_struct[*i].code, code);
+        
+
+        // printf("\n\n Add to codestruct [%d] : ", *i);
+        // printf("\n   left -\n       char : '%c'\n       code : %s", code_struct[*i].ascii_char, code_struct[*i].code);
+        ++*i;
+    }
+    code[strlen(code)-1] = '\0';
 }
 
 
-void encoder_fichier(char void_char[], char nom_fichier[], codestruct code[]){
-    printf("\n\n ENCODING FILE...");
+
+void encoder_fichier(char void_char[], char nom_fichier[], codestruct code_struct[], int size){
+    printf("\n\nENCODING FILE...");
     printf("\n\n 1.");
     int char_count = 0;
     FILE *fPointer;
@@ -148,22 +233,28 @@ void encoder_fichier(char void_char[], char nom_fichier[], codestruct code[]){
     printf("\n\n 3.");
     int count = 0;
     while(!feof(fPointer)){
-        printf("\n\n 3.1");
+        // printf("\n\n 3.1");
         fgets(singleLine, MAX_BUFFER_SIZE, fPointer);
-        printf("\n\n 3.2");
+        // printf("\n\n 3.2");
         for(int i=0; i<strlen(singleLine); i++){
-            void_char[count] = code[singleLine[i]].code;
-            count++;
+            // printf("\n\n Line char : '%c'", singleLine[i]);
+            for (int j=0; j<size; j++){
+                if (code_struct[j].ascii_char == singleLine[i]){
+                    //printf("\n Struct char : '%c'", code_struct[j].ascii_char);
+                    //printf("\n Struct code : %d", &code_struct[j].code);
+                    void_char = strncat(void_char, code_struct[j].code, sizeof(code_struct[j].code));
+                }
+            }
+            // printf("\n\n --------");
         }
     }
-
-    printf("\n\n 4.");
     fclose(fPointer);
 }
 
 
+
 void compresser_fichier(char fichier_output[], char encoded_char[]) {
-    printf("\n\n COMPRESSING FILE...");
+    printf("\n\nCOMPRESSING FILE...");
     printf("\n\n 1.");
     FILE *fPointer;
     fPointer = fopen(fichier_output, "wb");
@@ -182,8 +273,9 @@ void compresser_fichier(char fichier_output[], char encoded_char[]) {
 }
 
 
+
 void decompresser_fichier(char fichier_encode[], char fichier_decode[], arbrestruct arbre_struct[]) {
-    printf("\n\n UNCOMPRESSING FILE...");
+    printf("\n\nUNCOMPRESSING FILE...");
     printf("\n\n 1.");
     FILE *fPointer;
     char singleLine[MAX_BUFFER_SIZE];

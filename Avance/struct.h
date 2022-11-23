@@ -12,14 +12,14 @@
 
 typedef struct char_struct
 {
-    unsigned char ascii_char;
+    char ascii_char;
     int occurrence;
 } charstruct;
 
 
 typedef struct charindex_struct
 {
-    unsigned char ascii_char;
+    char ascii_char;
     int index;
 } charindexstruct;
 
@@ -27,7 +27,6 @@ typedef struct charindex_struct
 typedef struct arbre_struct
 {
     charstruct value;
-    struct arbre_struct * a_parent;
     struct arbre_struct * a_gauche;
     struct arbre_struct * a_droite;
 } arbrestruct;
@@ -35,7 +34,7 @@ typedef struct arbre_struct
 
 typedef struct code_struct
 {
-    unsigned char ascii_char;
+    char ascii_char;
     char code[32];
 } codestruct;
 
@@ -53,21 +52,22 @@ int lire_caracteres(charstruct[], char[]);
 // param1 : char vide servant d'output ("" -> "110011101010001110...")
 // param2 : texte en input
 // param3 : codestruct
-void creer_arbre(arbrestruct[], charstruct[], int, arbrestruct); // ToDo
+arbrestruct creer_arbre(arbrestruct[], charstruct[], int, arbrestruct); // ToDo
 
 // Retourne une liste de codestruct liant char et leur encodage
 //
 // param1 : char vide servant d'output ("" -> "110011101010001110...")
 // param2 : texte en input
 // param3 : codestruct
-void creer_table(codestruct[], arbrestruct, arbrestruct);
+void creer_table_g(codestruct[], arbrestruct*, int*, char[]);
+void creer_table_d(codestruct[], arbrestruct*, int*, char[]);
 
 // Prend texte input et retourne string binaire encodee selon code
 //
 // param1 : char vide servant d'output ("" -> "110011101010001110...")
 // param2 : texte en input
 // param3 : codestruct
-void encoder_fichier(char[], char[], codestruct[]);
+void encoder_fichier(char[], char[], codestruct[], int);
 
 // Prend string binaire encodee selon arbre et l'ecrit dans un fichier .txt
 //
