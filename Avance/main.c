@@ -7,7 +7,7 @@ int main(){
     arbrestruct arbre_struct[512] = {NULL, NULL, NULL};
     codestruct code_struct[256] = {NULL, NULL};
 
-    char encoded_data[40960] = {NULL};
+    char encoded_data[MAX_BIT] = {NULL};
     int size;
     arbrestruct endcoded_arbre_struct;
     char code[32] = {NULL};
@@ -22,7 +22,7 @@ int main(){
     size = lire_caracteres(char_struct, SRC_FILE);
     printf("\n\n -- Read ! --");
     // Uncomment following to print read data
-    
+    /*
     printf("\n\n Size of char_struct : %d", size);
     for (int i=0; i<size; i++){
         if (char_struct[i].occurrence != 0){
@@ -32,7 +32,7 @@ int main(){
                 printf("\n   Index : %d \n   Char : '\\n' \n   Occurence : %d\n", i, char_struct[i].occurrence);
         }   
     }
-    
+    */
 
 
     /* --------------------------------------------------------------------- */
@@ -43,7 +43,7 @@ int main(){
     endcoded_arbre_struct = creer_arbre(arbre_struct, char_struct, size, endcoded_arbre_struct);
     printf("\n\n -- Built ! --");
     // Uncomment following to print Tree data
-    
+    /*
     printf("\n\n Tree data :");
     printf(
         "\n   Root Char : '%c'\n   Root Occurence : %d\n     Char Gauche : '%c'\n     Occurrence Gauche : %d\n\n     Char Droit : '%c'\n     Occurrence Droit : %d",  
@@ -54,7 +54,7 @@ int main(){
         endcoded_arbre_struct.a_droite->value.ascii_char, 
         endcoded_arbre_struct.a_droite->value.occurrence
     );
-    
+    */
 
 
     /* --------------------------------------------------------------------- */
@@ -67,7 +67,7 @@ int main(){
     creer_table_d(code_struct, &endcoded_arbre_struct, &inte, code2);
     printf("\n\n -- Created ! --");
     // Uncomment following to print Table
-    
+    /*
     printf("\n\n Table :");
     for (int i=0; i<size; i++){
         if (code_struct[i].ascii_char == '\n') {
@@ -75,32 +75,38 @@ int main(){
         } else
             printf("\n  > '%c'   :            |  < %s >", code_struct[i].ascii_char, &code_struct[i].code);
     }
-    
+    */
 
 
     /* --------------------------------------------------------------------- */
-    /* --------------------------- ENCODING DATA --------------------------- */
+    /* -------------------------- ENCODING DATA ---------------------------- */
     /* --------------------------------------------------------------------- */
     printf("\n\n---------------------------------\n\n");
+    printf("\n\nENCODING FILE...");
     encoder_fichier(encoded_data, SRC_FILE, code_struct, size);
+    printf("\n\n -- Encoded ! --");
     // Uncomment following to print Encoded data
-    
-    printf("\n Encoded data : \n%s", encoded_data);
-    
+    /*
+    printf("\n\n Encoded data : \n%s", encoded_data);
+    */
 
 
     /* --------------------------------------------------------------------- */
-    /* -----------------------                    -------------------------- */
-    /* --------------------------------------------------------------------- */
-    printf("\n\n---------------------------------\n\n");
-    // compresser_fichier("./test_encode.huf", encoded_data);
-
-
-    /* --------------------------------------------------------------------- */
-    /* -----------------------                    -------------------------- */
+    /* ------------------------  COMPRESSING FILE  ------------------------- */
     /* --------------------------------------------------------------------- */
     printf("\n\n---------------------------------\n\n");
-    // decompresser_fichier("./test_encode.huf", "./test_decode.txt", encoded_data);
+    printf("\n\nCOMPRESSING FILE...");
+    compresser_fichier("./test_encode.bin", encoded_data);
+    printf("\n\n -- Compressed ! --");
+
+
+    /* --------------------------------------------------------------------- */
+    /* ------------------------ UNCOMPRESSING FILE ------------------------- */
+    /* --------------------------------------------------------------------- */
+    printf("\n\n---------------------------------\n\n");
+    printf("\n\nUNCOMPRESSING FILE...");
+    decompresser_fichier("./test_encode.bin", "./test_decode.txt", encoded_data, size);
+    printf("\n\n -- Uncompressed ! --");
     
 
 

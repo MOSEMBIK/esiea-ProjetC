@@ -6,6 +6,7 @@
 #include <string.h>
 
 #define MAX_BUFFER_SIZE 5120
+#define MAX_BIT 40960
 
 /* ----------------------------------------------------------------- */
 /* STUCTURES */
@@ -80,6 +81,6 @@ void compresser_fichier(char[], char[]);
 // param1 : path fichier d'input encodee
 // param2 : path fichier d'output
 // param3 : arbrestruct
-void decompresser_fichier(char[], char[], arbrestruct[]);
+void decompresser_fichier(char[], char[], arbrestruct[], int);
 
 #endif
