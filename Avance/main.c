@@ -1,6 +1,6 @@
 #include "struct.h"
 
-#define SRC_FILE "./test.txt"
+#define SRC_FILE "./test3.txt"
 
 int main(){
     charstruct char_struct[256] = {NULL, 0};
