@@ -17,10 +17,10 @@ int main(){
     /* --------------------------------------------------------------------- */
     /* ------------------------ LECTURE DE L'INPUT ------------------------- */
     /* --------------------------------------------------------------------- */
-    printf("\n\n---------------------------------\n\n");
+    printf("\n---------------------------------\n");
     printf("\n\nREADING FILE...");
     size = lire_caracteres(char_struct, SRC_FILE);
-    printf("\n\n -- Read ! --");
+    printf("\n -- Read ! --");
     // Uncomment following to print read data
     /*
     printf("\n\n Size of char_struct : %d", size);
@@ -38,10 +38,10 @@ int main(){
     /* --------------------------------------------------------------------- */
     /* ------------------------ CREATION ARBRE BIN ------------------------- */
     /* --------------------------------------------------------------------- */
-    printf("\n\n---------------------------------\n\n");
+    printf("\n\n---------------------------------\n");
     printf("\n\nBUILDING TREES...");
     endcoded_arbre_struct = creer_arbre(arbre_struct, char_struct, size, endcoded_arbre_struct);
-    printf("\n\n -- Built ! --");
+    printf("\n -- Built ! --");
     // Uncomment following to print Tree data
     /*
     printf("\n\n Tree data :");
@@ -60,12 +60,12 @@ int main(){
     /* --------------------------------------------------------------------- */
     /* ----------------------- TABLE CORRESPONDANCES ----------------------- */
     /* --------------------------------------------------------------------- */
-    printf("\n\n---------------------------------\n\n");
+    printf("\n\n---------------------------------\n");
     printf("\n\nCREATING TABLE...");
     int inte = 0;
     creer_table_g(code_struct, &endcoded_arbre_struct, &inte, code);
     creer_table_d(code_struct, &endcoded_arbre_struct, &inte, code2);
-    printf("\n\n -- Created ! --");
+    printf("\n -- Created ! --");
     // Uncomment following to print Table
     /*
     printf("\n\n Table :");
@@ -81,10 +81,10 @@ int main(){
     /* --------------------------------------------------------------------- */
     /* -------------------------- ENCODING DATA ---------------------------- */
     /* --------------------------------------------------------------------- */
-    printf("\n\n---------------------------------\n\n");
+    printf("\n\n---------------------------------\n");
     printf("\n\nENCODING FILE...");
     encoder_fichier(encoded_data, SRC_FILE, code_struct, size);
-    printf("\n\n -- Encoded ! --");
+    printf("\n -- Encoded ! --");
     // Uncomment following to print Encoded data
     /*
     printf("\n\n Encoded data : \n%s", encoded_data);
@@ -94,19 +94,19 @@ int main(){
     /* --------------------------------------------------------------------- */
     /* ------------------------  COMPRESSING FILE  ------------------------- */
     /* --------------------------------------------------------------------- */
-    printf("\n\n---------------------------------\n\n");
+    printf("\n\n---------------------------------\n");
     printf("\n\nCOMPRESSING FILE...");
     compresser_fichier("./test_encode.bin", encoded_data);
-    printf("\n\n -- Compressed ! --");
+    printf("\n -- Compressed ! --");
 
 
     /* --------------------------------------------------------------------- */
     /* ------------------------ UNCOMPRESSING FILE ------------------------- */
     /* --------------------------------------------------------------------- */
-    printf("\n\n---------------------------------\n\n");
+    printf("\n\n---------------------------------\n");
     printf("\n\nUNCOMPRESSING FILE...");
     decompresser_fichier("./test_encode.bin", "./test_decode.txt", encoded_data, size);
-    printf("\n\n -- Uncompressed ! --");
+    printf("\n -- Uncompressed ! --");
     
 
 
