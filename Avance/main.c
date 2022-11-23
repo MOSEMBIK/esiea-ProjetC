@@ -1,6 +1,6 @@
 #include "struct.h"
 
-#define SRC_FILE "./test.txt"
+#define SRC_FILE "./test3.txt"
 
 int main(){
     charstruct char_struct[256] = {NULL, 0};
@@ -105,7 +105,7 @@ int main(){
     /* --------------------------------------------------------------------- */
     printf("\n\n---------------------------------\n");
     printf("\n\nUNCOMPRESSING FILE...");
-    decompresser_fichier("./test_encode.bin", "./test_decode.txt", encoded_data, size);
+    decompresser_fichier("./test_encode.bin", "./test_decode.txt", &endcoded_arbre_struct, size);
     printf("\n -- Uncompressed ! --");
     
 

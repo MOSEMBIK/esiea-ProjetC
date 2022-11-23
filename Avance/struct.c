@@ -323,24 +323,20 @@ void compresser_fichier(char fichier_output[], char encoded_char[]) {
 
 
 
-void decompresser_fichier(char fichier_encode[], char fichier_decode[], arbrestruct arbre_struct[], int size) {
-    printf("\n\n 1.");
+void decompresser_fichier(char fichier_encode[], char fichier_decode[], arbrestruct * arbre_struct, int size) {
+    //printf("\n\n 1.");
 
     FILE *fPointer;
     char singleLine[MAX_BUFFER_SIZE];
     fPointer = fopen(fichier_encode, "rb");
 
-    printf("\n\n 2.");
+    //printf("\n\n 2.");
     if(fPointer == NULL){
         printf("Erreur fopen\n");
         return;
     }
 
-    printf("\n\n 3.");
-    int count = 0;
-    unsigned char output[] = {NULL};
-    arbrestruct tmp = arbre_struct[0];
-
+    //printf("\n\n 3.");
     int val;
     char decode[MAX_BIT] = {NULL};
     char char_tmp[9];
@@ -353,40 +349,61 @@ void decompresser_fichier(char fichier_encode[], char fichier_decode[], arbrestr
 
     //printf("\n%s", decode);
 
-    while((val=fgetc(fPointer)) != EOF){
-        printf("\n\n 3.1");
-        fgets(singleLine, MAX_BUFFER_SIZE, fPointer);
-        printf("\n\n 3.2");
-        for(int i=0; i<strlen(singleLine); i++){
-            if(tmp.value.ascii_char == NULL){
-                if(singleLine[i] == 0){
-                    tmp = *tmp.a_gauche;
-                } else if(singleLine[i] == 1) {
-                    tmp = *tmp.a_droite;
-                }
-            } else {
-                output[count] = tmp.value.ascii_char;
+    int count = 0;
+    char output[MAX_BIT] = {NULL};
+    arbrestruct * tmp = &arbre_struct[0];
+
+    for(int i=0; i<strlen(decode); i++){
+
+        // printf("\n\n Tree data :");
+        // printf(
+        //     "\n   Root Char : '%c'\n   Root Occurence : %d\n     Char Gauche : '%c'\n     Occurrence Gauche : %d\n\n     Char Droit : '%c'\n     Occurrence Droit : %d",  
+        //     tmp->value.ascii_char, 
+        //     tmp->value.occurrence, 
+        //     tmp->a_gauche->value.ascii_char, 
+        //     tmp->a_gauche->value.occurrence, 
+        //     tmp->a_droite->value.ascii_char, 
+        //     tmp->a_droite->value.occurrence
+        // );
+
+        if(tmp->value.ascii_char == NULL){
+            //printf("\n root '%c' ", tmp->value.ascii_char);
+            if(decode[i] == '0'){
+                tmp = tmp->a_gauche;
+                //printf("\n gauche '%c' ", tmp->value.ascii_char);
+            } else if(decode[i] == '1') {
+                tmp = tmp->a_droite;
+                //printf("\n droite '%c' ", tmp->value.ascii_char);
+            }
+
+            if(tmp->value.ascii_char != NULL){
+                //printf("\n else\n'%c' ", tmp->value.ascii_char);
+                output[count] = tmp->value.ascii_char;
+                // printf("%s\n", output);
                 count++;
+                tmp = &arbre_struct[0];
             }
         }
     }
 
-    printf("\n\n 5.");
+    //printf("%s\n", output);
+
+    //printf("\n\n 5.");
     fclose(fPointer);
 
-    printf("Writing part");
+    //printf("Writing part");
     fPointer = fopen(fichier_decode, "w");
 
-    printf("\n\n 2.");
+    //printf("\n\n 2.");
     if(fPointer == NULL){
         printf("Erreur fopen\n");
         return;
     }
 
-    printf("\n\n 3.");
+    //printf("\n\n 3.");
     fprintf(fPointer, "%s", output);
 
-    printf("\n\n 5.");
+    //printf("\n\n 5.");
     fclose(fPointer);
 }
 
