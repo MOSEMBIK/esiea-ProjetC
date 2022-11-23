@@ -105,7 +105,7 @@ int main(){
     /* --------------------------------------------------------------------- */
     printf("\n\n---------------------------------\n");
     printf("\n\nUNCOMPRESSING FILE...");
-    decompresser_fichier("./test_encode.bin", "./test_decode.txt", encoded_data, size);
+    decompresser_fichier("./test_encode.bin", "./test_decode.txt", &endcoded_arbre_struct, size);
     printf("\n -- Uncompressed ! --");
     
 

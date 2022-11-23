@@ -81,6 +81,6 @@ void compresser_fichier(char[], char[]);
 // param1 : path fichier d'input encodee
 // param2 : path fichier d'output
 // param3 : arbrestruct
-void decompresser_fichier(char[], char[], arbrestruct[], int);
+void decompresser_fichier(char[], char[], arbrestruct*, int);
 
 #endif
