@@ -31,9 +31,8 @@ void decToBinary(int n, char char_tmp[]){
     //     }
     // }
 
-    printf("%s\n", tmp);
     strrev(tmp);
-    //printf("%s\n", tmp);
+    printf("%s\n", tmp);
 
     strcpy(char_tmp, binaryNum);
     //printf("%s ", char_tmp);
