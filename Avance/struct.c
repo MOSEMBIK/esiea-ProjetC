@@ -11,31 +11,23 @@ int aStructComparator(arbrestruct * first, arbrestruct * second){
 
 void decToBinary(int n, char char_tmp[]){
     // array to store binary number
-    char tmp[8] = {'0', '0', '0', '0', '0', '0', '0', '0'};
-    char binaryNum[8] = {NULL};
+    char tmp[9];
+    char binaryNum[9];
 
-    // counter for binary array
-    int i = 0;
-    while (n > 0) {
-        // storing remainder in binary array
-        tmp[i] = (n % 2) + '0';
-        n = n / 2;
-        i++;
+    int c, k;
+    for(c=7; c >= 0; c--){
+        k = n >> c;
+        if (k & 1)
+            tmp[c] = '1';
+        else
+            tmp[c] = '0';
     }
 
-    //printf("%s ", tmp);
-    // printing binary array in reverse order
-    // for(int j=0; j<8; j++){
-    //     if(tmp[j] == NULL){
-    //         tmp[j] = '0';
-    //     }
-    // }
-
-    printf("%s\n", tmp);
     strrev(tmp);
     //printf("%s\n", tmp);
+    //printf("%s\n", tmp);
 
-    strcpy(char_tmp, binaryNum);
+    strcpy(char_tmp, tmp);
     //printf("%s ", char_tmp);
 }
 
@@ -249,20 +241,19 @@ void creer_table_d(codestruct code_struct[], arbrestruct * endcoded_arbre_struct
 
 
 void encoder_fichier(char void_char[], char nom_fichier[], codestruct code_struct[], int size){
-    printf("\n\nENCODING FILE...");
-    printf("\n\n 1.");
+    // printf("\n\n 1.");
     int char_count = 0;
     FILE *fPointer;
     fPointer = fopen(nom_fichier, "r");
     char singleLine[MAX_BUFFER_SIZE];
 
-    printf("\n\n 2.");
+    // printf("\n\n 2.");
     if(fPointer == NULL){
         printf("Erreur fopen\n");
         return;
     }
 
-    printf("\n\n 3.");
+    // printf("\n\n 3.");
     int count = 0;
     while(!feof(fPointer)){
         // printf("\n\n 3.1");
@@ -286,21 +277,20 @@ void encoder_fichier(char void_char[], char nom_fichier[], codestruct code_struc
 
 
 void compresser_fichier(char fichier_output[], char encoded_char[]) {
-    printf("\n\nCOMPRESSING FILE...");
-    printf("\n\n 1.");
+    // printf("\n\n 1.");
     FILE *fPointer;
     FILE *fPointer2;
     fPointer = fopen(fichier_output, "wb");
     fclose(fPointer);
     fPointer = fopen(fichier_output, "wb+");
 
-    printf("\n\n 2.");
+    // printf("\n\n 2.");
     if(fPointer == NULL){
         printf("Erreur fopen\n");
         return;
     }
 
-    printf("\n\n 3.");
+    // printf("\n\n 3.");
     for(int i=0; i<strlen(encoded_char); i+=8){
         char substring[9] = {NULL};
         int count = 0;
@@ -318,7 +308,7 @@ void compresser_fichier(char fichier_output[], char encoded_char[]) {
         //set value to write
         unsigned char to_write;
         to_write = count;
-        printf("%d ", to_write);
+        // printf("%d ", to_write);
 
         //attempt to write to file
         if(fwrite(&to_write, sizeof to_write, 1, fPointer) != 1){
@@ -327,16 +317,15 @@ void compresser_fichier(char fichier_output[], char encoded_char[]) {
         }
     }
 
-    printf("\n\n 4.");
+    // printf("\n\n 4.");
     fclose(fPointer);    
 }
 
 
 
 void decompresser_fichier(char fichier_encode[], char fichier_decode[], arbrestruct arbre_struct[], int size) {
-    printf("\n\nUNCOMPRESSING FILE...");
     printf("\n\n 1.");
-    
+
     FILE *fPointer;
     char singleLine[MAX_BUFFER_SIZE];
     fPointer = fopen(fichier_encode, "rb");
@@ -353,17 +342,16 @@ void decompresser_fichier(char fichier_encode[], char fichier_decode[], arbrestr
     arbrestruct tmp = arbre_struct[0];
 
     int val;
-    char decode[size];
-    char char_tmp[8];
+    char decode[MAX_BIT] = {NULL};
+    char char_tmp[9];
 	while ((val=fgetc(fPointer)) != EOF){
-        printf("%d ", val);
+        //printf("\n%d\n", val);
         decToBinary(val, char_tmp);
-
         //printf("%s ", char_tmp);
-
         strcat(decode, char_tmp);
-        //printf("%s\n", decode);
 	}
+
+    //printf("\n%s", decode);
 
     while((val=fgetc(fPointer)) != EOF){
         printf("\n\n 3.1");
@@ -401,3 +389,4 @@ void decompresser_fichier(char fichier_encode[], char fichier_decode[], arbrestr
     printf("\n\n 5.");
     fclose(fPointer);
 }
+
