@@ -93,14 +93,14 @@ int main(){
     /* -----------------------                    -------------------------- */
     /* --------------------------------------------------------------------- */
     printf("\n\n---------------------------------\n\n");
-    // compresser_fichier("./test_encode.huf", encoded_data);
+    compresser_fichier("./test_encode.bin", encoded_data);
 
 
     /* --------------------------------------------------------------------- */
     /* -----------------------                    -------------------------- */
     /* --------------------------------------------------------------------- */
     printf("\n\n---------------------------------\n\n");
-    // decompresser_fichier("./test_encode.huf", "./test_decode.txt", encoded_data);
+    decompresser_fichier("./test_encode.bin", "./test_decode.txt", encoded_data, size);
     
 
 
