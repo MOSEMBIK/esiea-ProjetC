@@ -216,7 +216,7 @@ void creer_table_d(codestruct code_struct[], arbrestruct * endcoded_arbre_struct
 
 
 
-void encoder_fichier(char void_char[], char nom_fichier[], codestruct code[]){
+void encoder_fichier(char void_char[], char nom_fichier[], codestruct code_struct[], int size){
     printf("\n\nENCODING FILE...");
     printf("\n\n 1.");
     int char_count = 0;
@@ -233,16 +233,21 @@ void encoder_fichier(char void_char[], char nom_fichier[], codestruct code[]){
     printf("\n\n 3.");
     int count = 0;
     while(!feof(fPointer)){
-        printf("\n\n 3.1");
+        // printf("\n\n 3.1");
         fgets(singleLine, MAX_BUFFER_SIZE, fPointer);
-        printf("\n\n 3.2");
+        // printf("\n\n 3.2");
         for(int i=0; i<strlen(singleLine); i++){
-            void_char[count] = code[singleLine[i]].code;
-            count++;
+            // printf("\n\n Line char : '%c'", singleLine[i]);
+            for (int j=0; j<size; j++){
+                if (code_struct[j].ascii_char == singleLine[i]){
+                    //printf("\n Struct char : '%c'", code_struct[j].ascii_char);
+                    //printf("\n Struct code : %d", &code_struct[j].code);
+                    void_char = strncat(void_char, code_struct[j].code, sizeof(code_struct[j].code));
+                }
+            }
+            // printf("\n\n --------");
         }
     }
-
-    printf("\n\n 4.");
     fclose(fPointer);
 }
 
