@@ -2,7 +2,8 @@
 
 #define SRC_FILE "./test3.txt"
 
-int main(){
+
+void file_compressor(datasaver save){
     charstruct char_struct[256] = {NULL, 0};
     arbrestruct arbre_struct[512] = {NULL, NULL, NULL};
     codestruct code_struct[256] = {NULL, NULL};
@@ -98,17 +99,33 @@ int main(){
     printf("\n\nCOMPRESSING FILE...");
     compresser_fichier("./test_encode.bin", encoded_data);
     printf("\n -- Compressed ! --");
+}
 
-
+void file_uncompressor(char encoded_file_name[], arbrestruct * endcoded_arbre_struct, int size){
     /* --------------------------------------------------------------------- */
     /* ------------------------ UNCOMPRESSING FILE ------------------------- */
     /* --------------------------------------------------------------------- */
     printf("\n\n---------------------------------\n");
     printf("\n\nUNCOMPRESSING FILE...");
-    decompresser_fichier("./test_encode.bin", "./test_decode.txt", &endcoded_arbre_struct, size);
+    decompresser_fichier(strcat(encoded_file_name, ".bin"), strcat(encoded_file_name, "_decode.txt"), &endcoded_arbre_struct, size);
     printf("\n -- Uncompressed ! --");
     
+}
 
+
+int main(){
+    datasaver saves[300];
+
+    printf("\n\n ----- Data Compressor. -----");
+    printf("\n Based on Huffman algorithm.");
+    
+    while(1){
+        char file_name[33];
+        scanf("%s", &file_name);
+
+        
+
+    }
 
     printf("\n\nCliquez sur ENTREE pour continuer.");
     while (scanf("%c") != '\n');

@@ -36,8 +36,16 @@ typedef struct arbre_struct
 typedef struct code_struct
 {
     char ascii_char;
-    char code[32];
+    char code[33];
 } codestruct;
+
+
+typedef struct data_saver
+{
+    char identifier[33];
+    struct arbre_struct * tree;
+    int osize;
+} datasaver;
 
 /* ----------------------------------------------------------------- */
 /* FONCTIONS */
